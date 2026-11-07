@@ -5,11 +5,11 @@ BarangayCare is a client-server prototype for a Digital Beneficiary Management a
 ## Run the Laravel app on Windows
 
 1. Start WAMP's MySQL service.
-2. Double-click `php.bat` in this folder. It finds WAMP's PHP 8.3+ executable, prepares Laravel's `.env` and application key when needed, creates the configured database if needed, runs Laravel migrations and seeders, then starts `php artisan serve`.
+2. Double-click `php.bat` in this folder. It finds WAMP's PHP 8.4.1+ executable, prepares Laravel's `.env` and application key when needed, creates the configured database if needed, runs Laravel migrations and seeders, then starts `php artisan serve`.
 3. Open `http://127.0.0.1:8000` on the server computer. Keep the command window open while using the system.
 4. To use phones or other computers without public internet, connect them to the same Wi-Fi as the server computer and open `http://<server-computer-LAN-IP>:8000`. The launcher prints the available LAN addresses. Do not use `127.0.0.1` on another device; that address points back to that device. If Windows Firewall prompts you, allow access on private networks only.
 
-`php.bat` selects WAMP PHP 8.4/8.3. Double-click it to prepare the database and start the server. `php.bat artisan ...` still runs Artisan with that same PHP, and `composer.bat` uses `composer.phar` in this folder.
+`php.bat` selects WAMP PHP 8.4.1 or newer. Double-click it to prepare the database and start the server. `php.bat artisan ...` still runs Artisan with that same PHP, and `composer.bat` uses `composer.phar` in this folder.
 
 Laravel is the system's only active backend: it serves the interface, provides the API, creates the schema with migrations, and stores records in MySQL. If you already have a Laravel `.env` file, the launcher leaves it unchanged; check its `DB_CONNECTION`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` values if setup cannot connect.
 

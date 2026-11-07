@@ -3,7 +3,7 @@ setlocal
 
 call :find_php
 if not defined PHP_EXE (
-    echo No PHP 8.3+ CLI with the PDO MySQL extension was found.
+    echo No PHP 8.4.1+ CLI with the PDO MySQL extension was found.
     echo Enable pdo_mysql in WAMP or select a compatible PHP version.
     if "%~1"=="" pause
     exit /b 1
@@ -117,27 +117,20 @@ exit /b %EXIT_CODE%
 set "PHP_EXE="
 
 if exist "C:\wamp64\bin\php\php8.4.15\php.exe" (
-    "C:\wamp64\bin\php\php8.4.15\php.exe" -r "exit(PHP_VERSION_ID >= 80300 && extension_loaded('pdo_mysql') ? 0 : 1);"
+    "C:\wamp64\bin\php\php8.4.15\php.exe" -r "exit(PHP_VERSION_ID >= 80401 && extension_loaded('pdo_mysql') ? 0 : 1);"
     if not errorlevel 1 set "PHP_EXE=C:\wamp64\bin\php\php8.4.15\php.exe"
 )
 
 for /d %%D in ("C:\wamp64\bin\php\php8.4*") do (
     if not defined PHP_EXE if exist "%%~D\php.exe" (
-        "%%~D\php.exe" -r "exit(PHP_VERSION_ID >= 80300 && extension_loaded('pdo_mysql') ? 0 : 1);"
-        if not errorlevel 1 set "PHP_EXE=%%~D\php.exe"
-    )
-)
-
-for /d %%D in ("C:\wamp64\bin\php\php8.3*") do (
-    if not defined PHP_EXE if exist "%%~D\php.exe" (
-        "%%~D\php.exe" -r "exit(PHP_VERSION_ID >= 80300 && extension_loaded('pdo_mysql') ? 0 : 1);"
+        "%%~D\php.exe" -r "exit(PHP_VERSION_ID >= 80401 && extension_loaded('pdo_mysql') ? 0 : 1);"
         if not errorlevel 1 set "PHP_EXE=%%~D\php.exe"
     )
 )
 
 for /f "delims=" %%D in ('dir /b /ad /o-n "C:\wamp64\bin\php\php*" 2^>nul') do (
     if not defined PHP_EXE if exist "C:\wamp64\bin\php\%%D\php.exe" (
-        "C:\wamp64\bin\php\%%D\php.exe" -r "exit(PHP_VERSION_ID >= 80300 && extension_loaded('pdo_mysql') ? 0 : 1);"
+        "C:\wamp64\bin\php\%%D\php.exe" -r "exit(PHP_VERSION_ID >= 80401 && extension_loaded('pdo_mysql') ? 0 : 1);"
         if not errorlevel 1 set "PHP_EXE=C:\wamp64\bin\php\%%D\php.exe"
     )
 )
@@ -145,7 +138,7 @@ for /f "delims=" %%D in ('dir /b /ad /o-n "C:\wamp64\bin\php\php*" 2^>nul') do (
 if not defined PHP_EXE (
     for /f "delims=" %%P in ('where php 2^>nul') do (
         if not defined PHP_EXE (
-            "%%P" -r "exit(PHP_VERSION_ID >= 80300 && extension_loaded('pdo_mysql') ? 0 : 1);"
+            "%%P" -r "exit(PHP_VERSION_ID >= 80401 && extension_loaded('pdo_mysql') ? 0 : 1);"
             if not errorlevel 1 set "PHP_EXE=%%P"
         )
     )
