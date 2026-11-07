@@ -135,6 +135,15 @@ class BarangayCareApiTest extends TestCase
         $this->assertFrontendAssets($response);
     }
 
+    public function test_homepage_uses_https_asset_urls_behind_the_railway_proxy(): void
+    {
+        $response = $this->get('/', ['X-Forwarded-Proto' => 'https']);
+
+        $response
+            ->assertOk()
+            ->assertSee('https://127.0.0.1:8000/vendor/react.production.min.js');
+    }
+
     public function test_frontend_stylesheet_is_served_from_the_resources_entry(): void
     {
         $this->get('/assets/app.css')
