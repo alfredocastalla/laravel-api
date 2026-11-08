@@ -959,7 +959,11 @@ function MobileNav({ session, activePage, navigate, navOpen, setNavOpen }) {
   const moreActive = navOpen || !items.includes(activePage);
   return h(
     "nav",
-    { className: "mobile-nav no-print", "aria-label": "Phone pages" },
+    {
+      className: "mobile-nav no-print",
+      "aria-label": "Phone pages",
+      style: { gridTemplateColumns: `repeat(${items.length + 1}, minmax(0, 1fr))` },
+    },
     items.map((item) => h("button", { key: item, type: "button", "aria-label": item, className: (item === activePage || (item === "Beneficiaries & Assistance" && ["Beneficiaries", "Assistance"].includes(activePage))) && !navOpen ? "active" : "", onClick: () => navigate(item) }, h(Icon, { id: navIcon(item) }), h("span", null, mobileNavLabel(item)))),
     h("button", { type: "button", "aria-label": navOpen ? "Close more pages" : "Open more pages", className: moreActive ? "active" : "", onClick: () => setNavOpen(!navOpen), "aria-expanded": navOpen, "aria-controls": "app-sidebar" }, h(Icon, { id: "settings" }), h("span", null, navOpen ? "Close" : "More"))
   );

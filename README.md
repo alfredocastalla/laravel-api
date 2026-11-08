@@ -23,13 +23,16 @@ The app shell can reopen offline after it has been loaded once, but signing in, 
 
 ## Project Structure
 
+- `public/index.php` is the HTTP entry point. It loads Composer and hands the request to `bootstrap/app.php`; keep application behavior out of this file.
+- `bootstrap/app.php` wires the web, API, and console routes, authentication middleware, and API error rendering.
+- Start tracing a request in `routes/web.php` for pages or `routes/api.php` for data operations, then follow the controller/service shown below.
 - `app/Http/Controllers/BarangayCareApiController.php` handles API requests, validation, authorization checks, and notifications. Its `//#region` sections separate endpoint groups.
 - `app/Http/Controllers/BarangayCareFrontendController.php` serves the application page, stylesheet, and JavaScript fallback.
 - `app/Http/Middleware/AuthenticateBarangayCare.php` validates the bearer token for protected API requests.
 - `app/Services/BarangayCareAuth.php` handles account authentication and tokens; `app/Services/BarangayCareStore.php` reads and writes system records. The store's `//#region` sections separate data responsibilities.
 - `app/Support/AccountRole.php` and `app/Support/BenefitCategory.php` contain shared role and benefit-category rules.
 - `routes/web.php` maps page URLs; `routes/api.php` maps API endpoints to the API controller.
-- `resources/views/app.blade.php` is the page shell. `resources/js/app.js` contains the UI, with `//#region` sections for navigation in VS Code. `resources/css/app.css` contains application styles.
+- `resources/views/app.blade.php` is the page shell. `resources/js/app.js` contains the UI, with `//#region` sections for navigation in VS Code. `resources/css/app.css` is the single source stylesheet for all application styles; Vite's `public/build/` CSS is generated and should not be edited directly.
 - `public/laravel-service.js` connects the browser UI to the Laravel API. `vite.config.js` and `package.json` configure frontend builds.
 - `database/migrations/` defines the MySQL schema; `database/seeders/` provides initial records.
 - `tests/Feature/BarangayCareApiTest.php` covers API behavior, roles, and privacy; other feature tests cover setup and commands.
